@@ -1,6 +1,6 @@
 # Food&Enjoy - TFG
 
-Este es la parte del frontend de mi proyecto de final de grado para desarrollod de aplicaciones multiplataforma.
+Este es la parte del frontend de mi proyecto de final de grado para desarrollo de aplicaciones multiplataforma.
 Esta realizada usando React, lo he aprendido sobre la marcha en un mes, cualquier PR es agredecida y mas si es para aprender.
 Todavía estoy acabandola, faltan cosas por arreglar y terminar.
 
