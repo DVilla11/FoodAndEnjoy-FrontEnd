@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link} from "react-router-dom";
 import './App.css'
 import './components/navbar.css'
 import { Home } from './pages/Home.js'
@@ -38,7 +38,7 @@ const App = () => {
     return (
       <>
       <NavLinkComp to="/usuario">{user.nombre}</NavLinkComp>
-      <NavLinkComp to="/" onClick={handleLogout}>Cerrar sesión</NavLinkComp>
+      <Link to="/" onClick={handleLogout}>Cerrar sesión</Link>
       </>
     )
   }
