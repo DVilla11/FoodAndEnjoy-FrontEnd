@@ -37,7 +37,7 @@ const App = () => {
   const renderUser = () => {
     return (
       <>
-      <NavLinkComp to="/usuario">{user.nombre}</NavLinkComp>
+      <NavLinkComp data-cy="logged" to="/usuario">{user.nombre}</NavLinkComp>
       <Link to="/" onClick={handleLogout}>Cerrar sesión</Link>
       </>
     )
