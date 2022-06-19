@@ -1,15 +1,17 @@
 import {useState} from 'react'
 import './Cart.css';
 
-export const Cart = ({comida, handleOnClick}) => {
-    console.log(comida)
+export const Cart = ({quantity, comida, precio, handleOnClick}) => {
     return (
+        <>
         <section className='display'>
             <article className='producto'>
                 <h4>{comida}</h4>
-                <input type='number' defaultValue={1} min="0"></input>
+                <h4>{quantity}</h4>
+                <h4>{precio * quantity}€</h4>
                 <a onClick={handleOnClick}>🗑</a>
             </article>
         </section>
+        </>
     )
 }
