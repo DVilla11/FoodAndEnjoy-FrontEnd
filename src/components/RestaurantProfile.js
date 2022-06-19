@@ -1,31 +1,40 @@
 import { useEffect, useState } from 'react'
 import './UserProfile.css'
 import edit from './edit32.png'
+import { Plates } from "./Plates"
+import  Modal  from './Modal'
+import { NewPlates } from './newPlates'
 import editUsers from '../services/editUsers'
-import { Orders } from './Orders'
-import foto from './foto_defecto.png'
 
-export const UserProfile = () => {
+export const RestaurantProfile = () => {
     const [isDisable, setIsDisable] = useState(true);
-    const [pedido, setPedido] = useState([]);
     const [user, setUser] = useState([]);
-    const [token, setToken] = useState("")
+    const id = user.Restaurante_id
+    const [comida, setComida] = useState([]);
+    const [nuevaComida, setNuevaComida] = useState({
+        nombreComida: "",
+        precio: "",
+        ingredientes: "",
+        tipo: "",
+    });
+    const [showModal, setShowModal] = useState(false)
+    const [editForm, seteditForm] = useState(false)
 
 
     useEffect(() => {
         const loggedUserJSON = async () => {
-            const logged = window.localStorage.getItem('user')
+            const logged = window.localStorage.getItem('restaurante')
             if(logged){
-            const jwt = window.localStorage.getItem('token')
+            editUsers.setToken(window.localStorage.getItem('token'))
             const user = await JSON.parse(logged)
-            const pedido = user.pedido
+            const comida = user.comida
             setUser(user)
-            setPedido(pedido)
-            setToken(jwt)
+            setComida(comida)
             }  
         }
 
         loggedUserJSON()
+        
         
       }, [])
 
@@ -33,9 +42,28 @@ export const UserProfile = () => {
         setIsDisable(false)
     }
 
-    
-    /*const onChange = (e) => {
+    const handleFood = () => {
+        setShowModal(true)
+    }
+    const handleClose = () => {
+        setShowModal(false)
+    }
+
+    const removeFood = (foodToRemove) => {
+        setComida(comida.filter((food) => food !== foodToRemove))
+        console.log(comida)
+    }
+
+    const onChange = (e) => {
         setNuevaComida({...nuevaComida, [e.target.name]: e.target.value })
+    }
+
+    const handleAdd = (nuevaComida) => {
+        console.log(nuevaComida)
+        setComida([...comida, {...nuevaComida}])
+        setShowModal(false)
+        console.log(comida)
+
     }
 
     const handleSubmit = async (e) => {
@@ -46,7 +74,7 @@ export const UserProfile = () => {
             localStorage.setItem('restaurante', JSON.stringify(response))
             
         }
-    }*/
+    }
 
     return (
         <>
@@ -54,7 +82,7 @@ export const UserProfile = () => {
             <article className='card-profile'>
             <section className="picture-profile">
                 <picture className='border-img'>
-                <img className='image-profile' src={foto} alt="Imagen de perfil"></img>
+                <img className='image-profile' src={`data:image/jpeg;base64,${user.imagenByte}`} alt="Imagen de perfil"></img>
                 </picture>
             </section>
 
@@ -97,29 +125,30 @@ export const UserProfile = () => {
                     </label>
                     </div>
             </section>
-                <h2>📦 Pediddos 📦</h2>
+                <h2>🍝 Platos 🍝</h2>
             <section className='food-profile'>
                 <div id='food'>
                 {
-                    /*pedido.map((p) => {
+                    comida.map((c) => {
                         return(
-                        <div key={p.comida_id}>
-                            <Orders id={p.comida_id} nombreComida={p.nombreComida} ingredientes={p.ingredientes} 
-                                    precio={p.precio} tipo={p.tipo} edit={isDisable} removeFood={removeFood}
+                        <div key={c.comida_id}>
+                            <Plates id={c.comida_id} nombreComida={c.nombreComida} ingredientes={c.ingredientes} 
+                                    precio={c.precio} tipo={c.tipo} edit={isDisable} removeFood={removeFood}
                              >
                                  <button type="button" className="delete" disabled={isDisable} onClick={() => removeFood(c)}>🗑</button>
-                             </Orders>
+                             </Plates>
                              
                         </div>
                         ) 
-                    })*/
-                    <h1>Hola</h1>
+                    })
                 }
                 </div>
             </section>
-            <button type='submit' style={{display: isDisable ? 'none' :  undefined }}>Confirmar</button>
+            <button type='button' onClick={handleFood} style={{display: isDisable ? 'none' :  undefined }}>Añadir plato</button>
+            <button type='submit' onClick={handleSubmit} style={{display: isDisable ? 'none' :  undefined }}>Confirmar</button>
             </article>
         </form>
+        {showModal && <Modal onClose={handleClose}><NewPlates id={comida.length} values={nuevaComida} onChange={onChange} handleAdd={handleAdd}/></Modal>}
         </>
     )
 }
