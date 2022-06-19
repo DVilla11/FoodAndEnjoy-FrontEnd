@@ -3,6 +3,7 @@ import { Autocomplete } from '@react-google-maps/api'
 import { useNavigate } from 'react-router-dom';
 import registerService from '../services/register'
 import './Register.css'
+import { Navbar } from './Navbar';
 
 export const RegisterDeliveryPerson = ({values, onChange}) => {
 
@@ -28,6 +29,7 @@ export const RegisterDeliveryPerson = ({values, onChange}) => {
 
     return (
         <div className='image'>
+            <Navbar></Navbar>
             <div className='container_log'>
                 <form className='register' onSubmit={handleSubmit}>
                     <div className='column'>

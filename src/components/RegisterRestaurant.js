@@ -3,6 +3,7 @@ import { Autocomplete } from '@react-google-maps/api'
 import { useNavigate } from 'react-router-dom';
 import registerService from '../services/register'
 import './Register.css'
+import { Navbar } from './Navbar';
 
 export const RegisterRestaurant = ({values, onChange}) => {
     
@@ -18,8 +19,10 @@ export const RegisterRestaurant = ({values, onChange}) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let formData = new FormData(document.getElementById("form-rest"));
+        console.log([...formData])
         values.direccion = direccion.current.value
-        const response = await registerService.registrarRestaurante(values)
+        const response = await registerService.registrarRestaurante(formData)
         if(response === '201'){
             navigate('/', {state:true})
         }
@@ -27,8 +30,19 @@ export const RegisterRestaurant = ({values, onChange}) => {
 
     return (
         <div className='image'>
+            <Navbar></Navbar>
             <div className='container_log'>
-                <form className='register' onSubmit={handleSubmit}>
+                <form className='register' onSubmit={handleSubmit} encType='multipart/form-data' id='form-rest'>
+                    <label>
+                    Nombre Restaurante*
+                    <input placeholder='Nombre' type='text' name="nombreRestaurante" value={values.nombreRestaurante}
+                        onChange={onChange} required={true} />
+                    </label>
+                    <label>
+                    Imagen Restaurante*
+                    <input placeholder='Nombre'type="file" id="img" accept="image/*" name="imagen" value={values.imagen}
+                        onChange={onChange} required={true} />
+                    </label>
                     <div className='column'>
                     <label>
                     Nombre*

@@ -17,6 +17,7 @@
     height: 100vh;
     margin: 10vh auto;
     position: relative;
+    overflow: auto;
 }
 
 .modal-contenido .btn{

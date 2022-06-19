@@ -3,6 +3,7 @@ import { Autocomplete } from '@react-google-maps/api'
 import { useNavigate } from 'react-router-dom';
 import './Register.css'
 import registerService from '../services/register'
+import { Navbar } from './Navbar';
 
 export const RegisterUser = ({values, onChange}) => {
 
@@ -28,6 +29,7 @@ export const RegisterUser = ({values, onChange}) => {
 
     return (
         <div className='image'>
+            <Navbar></Navbar>
             <div className='container_log'>
                 <form className='register' onSubmit={handleSubmit}>
                     <div className='column'>
@@ -56,7 +58,7 @@ export const RegisterUser = ({values, onChange}) => {
                     <div className='column'>
                     <label>
                     Número de telefono
-                    <input placeholder='Telefono' type='tel' pattern="\x2b[0-9]+{9}" name="telefono" value={values.telefono}
+                    <input placeholder='Telefono' type='tel' pattern="[0-9]{9}" name="telefono" value={values.telefono}
                         onChange={onChange}/>
                     </label>
 

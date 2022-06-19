@@ -4,6 +4,7 @@ import { RegisterRestaurant } from '../components/RegisterRestaurant.js';
 
 export const RegisterRest = () => {
     const [values, setValues] = useState({
+        nombreRestaurante:"",
         nombre:"",
         apellido:"",
         direccion:"",
@@ -12,7 +13,9 @@ export const RegisterRest = () => {
         localidad:"",
         email:"",
         nombreUsuario:"",
-        contraseña:""
+        contraseña:"",
+        imagen:"",
+        comida:[]
     });
     //const navigate = useNavigate();
 

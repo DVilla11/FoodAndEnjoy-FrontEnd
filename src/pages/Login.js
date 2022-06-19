@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Navbar } from '../components/Navbar';
 import loginService from '../services/login'
 import './Login.css'
 
@@ -53,7 +54,7 @@ export const Login = () => {
                 delete data.contraseña
                 window.localStorage.setItem('restaurante', JSON.stringify(data))
                 setAuth(true)
-                navigate('/', {state:false, replace:true})
+                navigate('/usuario', {state:false, replace:true})
                 window.location.reload()
             }catch(error){
                 console.log('wrong credentials')
@@ -69,6 +70,7 @@ export const Login = () => {
     
     return (
         <div className='image'>
+            <Navbar></Navbar>
             <div className='container_log'>
                 <form className='login' onSubmit={handleSubmit}>
                     <label>

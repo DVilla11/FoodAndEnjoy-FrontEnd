@@ -30,14 +30,14 @@ async function registrarRepartidor(values){
     return response
 }
 
-async function registrarRestaurante(values){
+async function registrarRestaurante(formData){
     const request = await fetch(baseRestauranteURL, {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json ,text/plain, */*'
         },
-        body: JSON.stringify(values)
+        body: formData
     })
     const response = await request.status.toString()
     return response
