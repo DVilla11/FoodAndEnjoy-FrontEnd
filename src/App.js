@@ -9,57 +9,11 @@ import { Register } from './pages/Register.js'
 import { RegisterDelivery } from './pages/RegisterDelivery.js'
 import { RegisterRest } from './pages/RegisterRest.js'
 import { NavLinkComp } from "./components/NavLinkComp";
+import { Profile } from "./pages/Profile";
 
 const App = () => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('user')
-    if(loggedUserJSON){
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-    }
-  }, [])
-
-  const handleClick = () => {
-  };
-
-  const handleLogout = () => {
-    window.localStorage.removeItem('user')
-    window.localStorage.removeItem('token')
-    setUser(null)
-  };
-
-  const renderLinkLogin = () => {
-    return <NavLinkComp to="/login" onClick={handleClick}>Iniciar Sesión</NavLinkComp>
-  }
-
-  const renderUser = () => {
-    return (
-      <>
-      <NavLinkComp data-cy="logged" to="/usuario">{user.nombre}</NavLinkComp>
-      <Link to="/" onClick={handleLogout}>Cerrar sesión</Link>
-      </>
-    )
-  }
-
-
     return (
     <main>
-    <BrowserRouter>
-      <nav className="Navbar">
-          <NavLinkComp to="/" className="nav-logo">
-            <h4>FOOD&ENJOY</h4>
-          </NavLinkComp>
-          {
-            user
-            ? renderUser()
-            : renderLinkLogin()
-          }
-          <NavLinkComp to="/register/user" onClick={handleClick}>Registro</NavLinkComp>
-          <NavLinkComp to="/register/delivery" onClick={handleClick}>Quiero ser repartidor</NavLinkComp>
-          <NavLinkComp to="/register/restaurant" onClick={handleClick}>Añadir Restaurante</NavLinkComp>
-      </nav>
       <Routes>
         <Route path='/' element={<Home/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
@@ -68,11 +22,9 @@ const App = () => {
         <Route path='/register/restaurant' element={<RegisterRest/>}></Route>
 
         <Route path='/restaurantes' element={<List/>}></Route>
-        <Route path='/usuario' element={<h1>hola</h1>}></Route>
+        <Route path='/usuario' element={<Profile/>}></Route>
 
       </Routes>
-
-    </BrowserRouter>
     </main>
   );
 }
